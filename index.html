@@ -626,7 +626,7 @@ function fmt(t){
 }
 
 function setLoading(s){loading=s;document.getElementById('sendBtn').disabled=s;}
-function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+function handleKey(e){if(e.key==='Enter'&&e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
 function switchView(v,n){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.getElementById(v).classList.add('active');document.getElementById(n).classList.add('active');}
 
