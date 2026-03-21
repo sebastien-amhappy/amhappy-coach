@@ -15,7 +15,7 @@
 :root{
   --blue:#35648B;--blue-dark:#243d57;--blue-darker:#1a2a3a;
   --yellow:#FBBC10;--text-dark:#323232;--text-light:#f5f5f5;
-  --muted:rgba(245,245,245,0.5);--border:rgba(53,100,139,0.3);
+  --muted:rgba(245,245,245,0.45);--border:rgba(53,100,139,0.3);
   --surface:#1e3347;--bg:#152434;
   --safe-top:env(safe-area-inset-top,44px);--safe-bottom:env(safe-area-inset-bottom,20px);
 }
@@ -31,7 +31,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 @keyframes prog{from{width:0}to{width:100%}}
 
 /* API MODAL */
-#apiModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
+#apiModal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
 .api-box{background:var(--surface);border-radius:20px;padding:28px 22px;width:100%;max-width:340px;border:1px solid var(--border);}
 .api-box h3{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;margin-bottom:8px;}
 .api-box p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:18px;}
@@ -41,45 +41,57 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 /* APP */
 #app{display:flex;flex-direction:column;height:100%;height:-webkit-fill-available;}
 .status-bar{height:var(--safe-top);background:var(--surface);flex-shrink:0;}
+
+/* TOP NAV */
 .top-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,0.2);}
-.nav-logo{height:28px;}
-.nav-mode-pill{font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;background:var(--yellow);color:var(--text-dark);cursor:pointer;font-family:'Poppins',sans-serif;box-shadow:0 2px 8px rgba(251,188,16,0.3);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nav-logo{height:26px;}
+
+/* MODE SELECTOR IN NAV — pill optionnel */
+.mode-pill-wrap{display:flex;align-items:center;gap:6px;}
+.mode-pill{font-size:11px;font-weight:700;padding:5px 11px;border-radius:20px;font-family:'Poppins',sans-serif;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:5px;}
+.mode-pill.inactive{background:rgba(255,255,255,0.07);color:var(--muted);border:1px solid var(--border);}
+.mode-pill.active{background:var(--yellow);color:var(--text-dark);box-shadow:0 2px 8px rgba(251,188,16,0.3);}
+.mode-pill-icon{font-size:13px;}
+.mode-clear{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.1);border:none;color:var(--muted);font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
 
 /* CONTENT */
 #contentArea{flex:1;overflow:hidden;position:relative;}
 .view{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none;}
 .view.active{display:flex;flex-direction:column;}
-
-/* CHAT */
 #chatView{background:var(--bg);}
-.messages-wrap{flex:1;padding:16px 14px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
-
-/* WELCOME */
-.welcome-chat{padding:16px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
-.welcome-logo-wrap{width:72px;height:72px;background:white;border-radius:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(53,100,139,0.4);padding:8px;}
-.welcome-logo-wrap img{width:100%;}
-.welcome-chat h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:20px;line-height:1.2;}
-.welcome-chat h2 span{color:var(--yellow);}
-.welcome-chat p{font-size:13px;color:var(--muted);line-height:1.55;max-width:280px;}
-.tagline-badge{background:var(--yellow);color:var(--text-dark);font-family:'Poppins',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.5px;padding:5px 12px;border-radius:20px;}
-.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;margin-top:4px;}
-.qcard{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:12px;padding:12px 10px;text-align:left;cursor:pointer;transition:all 0.15s;}
-.qcard:active{transform:scale(0.97);border-left-color:var(--yellow);}
-.qcard .qi{font-size:18px;margin-bottom:5px;display:block;}
-.qcard .qt{font-size:12px;color:var(--text-light);line-height:1.35;font-weight:500;font-family:'Poppins',sans-serif;}
 
 /* MESSAGES */
-.msg{display:flex;gap:8px;}
+.messages-wrap{flex:1;padding:16px 14px 8px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+
+/* WELCOME — minimal, comme un vrai assistant */
+.welcome-chat{padding:24px 8px 16px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;}
+.welcome-logo-wrap{width:64px;height:64px;background:white;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(53,100,139,0.35);padding:7px;}
+.welcome-logo-wrap img{width:100%;}
+.welcome-chat h2{font-family:'Poppins',sans-serif;font-weight:800;font-size:19px;line-height:1.25;}
+.welcome-chat h2 span{color:var(--yellow);}
+.welcome-chat p{font-size:13px;color:var(--muted);line-height:1.55;max-width:280px;}
+
+/* MODE SELECTOR CHIPS — sous le welcome */
+.mode-chips-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-family:'Poppins',sans-serif;align-self:flex-start;padding-left:2px;}
+.mode-chips{display:flex;flex-wrap:wrap;gap:7px;width:100%;}
+.mode-chip{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--surface);border:1px solid var(--border);border-radius:20px;cursor:pointer;transition:all 0.15s;font-size:12px;font-weight:600;font-family:'Poppins',sans-serif;color:var(--text-light);}
+.mode-chip:active{transform:scale(0.96);}
+.mode-chip.selected{background:rgba(251,188,16,0.12);border-color:rgba(251,188,16,0.4);color:var(--yellow);}
+.mode-chip-icon{font-size:14px;}
+
+/* MESSAGES */
+.msg{display:flex;gap:8px;animation:fadeUp 0.25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .msg.user{flex-direction:row-reverse;}
-.msg-av{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;overflow:hidden;}
+.msg-av{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;overflow:hidden;}
 .msg.ai .msg-av{background:white;padding:3px;}
 .msg.ai .msg-av img{width:100%;height:100%;object-fit:contain;}
-.msg.user .msg-av{background:var(--blue);font-size:13px;color:white;font-weight:700;font-family:'Poppins',sans-serif;}
-.msg-body{max-width:82%;display:flex;flex-direction:column;gap:4px;}
+.msg.user .msg-av{background:var(--blue);font-size:12px;color:white;font-weight:700;font-family:'Poppins',sans-serif;}
+.msg-body{max-width:84%;display:flex;flex-direction:column;gap:3px;}
 .msg.user .msg-body{align-items:flex-end;}
 .msg-name{font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--muted);font-family:'Poppins',sans-serif;}
 .msg.ai .msg-name{color:var(--yellow);}
-.msg-bubble{padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.6;}
+.msg-bubble{padding:11px 14px;border-radius:14px;font-size:14px;line-height:1.65;}
 .msg.ai .msg-bubble{background:var(--surface);border:1px solid var(--border);border-top-left-radius:4px;}
 .msg.user .msg-bubble{background:var(--blue);border-top-right-radius:4px;color:white;}
 .msg-bubble strong{color:var(--yellow);font-weight:700;}
@@ -89,7 +101,11 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 .s-a{background:rgba(251,188,16,0.1);border-color:rgba(251,188,16,0.4);color:var(--yellow);}
 .s-s{background:rgba(92,172,224,0.1);border-color:rgba(92,172,224,0.4);color:#5cace0;}
 .s-d{background:rgba(120,180,130,0.1);border-color:rgba(120,180,130,0.4);color:#78b482;}
-.msg-time{font-size:9px;color:var(--muted);font-family:'Poppins',sans-serif;padding:0 4px;}
+.msg-time{font-size:9px;color:var(--muted);font-family:'Poppins',sans-serif;padding:0 2px;}
+
+/* MODE BADGE IN CONVERSATION */
+.mode-badge-msg{display:flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px;background:rgba(251,188,16,0.08);border:1px solid rgba(251,188,16,0.2);border-radius:20px;margin:4px auto;width:fit-content;}
+.mode-badge-msg span{font-size:11px;font-weight:600;color:var(--yellow);font-family:'Poppins',sans-serif;}
 
 /* TYPING */
 .typing-bubble{padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;border-top-left-radius:4px;display:flex;gap:4px;align-items:center;}
@@ -97,8 +113,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 .t-dot:nth-child(2){animation-delay:0.2s}.t-dot:nth-child(3){animation-delay:0.4s}
 @keyframes tdot{0%,60%,100%{opacity:0.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-4px)}}
 
-/* INPUT */
-.input-bar{padding:10px 14px;padding-bottom:calc(10px + var(--safe-bottom));border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;display:flex;gap:8px;align-items:flex-end;}
+/* INPUT BAR */
+.input-bar{padding:8px 14px;padding-bottom:calc(8px + var(--safe-bottom));border-top:1px solid var(--border);background:var(--surface);flex-shrink:0;}
+.input-row{display:flex;gap:8px;align-items:flex-end;}
 .input-field{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:22px;padding:10px 16px;color:var(--text-light);font-family:'Lato',sans-serif;font-size:15px;outline:none;resize:none;max-height:100px;line-height:1.4;-webkit-appearance:none;}
 .input-field::placeholder{color:var(--muted);}
 .input-field:focus{border-color:var(--blue);}
@@ -106,37 +123,33 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 .send-btn:active{transform:scale(0.92);}
 .send-btn:disabled{background:var(--border);box-shadow:none;color:var(--muted);}
 
+/* NEW CONV BTN */
+.new-conv-row{display:flex;justify-content:center;padding:4px 0 2px;}
+.new-conv-btn{display:flex;align-items:center;gap:5px;padding:5px 14px;background:transparent;border:1px solid var(--border);border-radius:20px;color:var(--muted);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.new-conv-btn:active{background:var(--surface);}
+
 /* HISTORY VIEW */
 #historyView{background:var(--bg);}
 .history-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 14px;display:flex;flex-direction:column;gap:10px;}
-.history-header{display:flex;align-items:center;justify-content:space-between;padding:0 2px;margin-bottom:4px;}
+.history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
 .history-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;}
-.history-clear{font-size:11px;color:var(--muted);font-family:'Poppins',sans-serif;cursor:pointer;padding:4px 8px;border-radius:8px;background:rgba(229,62,62,0.1);color:#fc8181;border:1px solid rgba(229,62,62,0.2);}
-
-.mode-section{margin-bottom:16px;}
-.mode-section-label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Poppins',sans-serif;margin-bottom:8px;padding-left:2px;}
+.history-clear{font-size:11px;cursor:pointer;padding:4px 10px;border-radius:8px;background:rgba(229,62,62,0.08);color:#fc8181;border:1px solid rgba(229,62,62,0.2);font-family:'Poppins',sans-serif;font-weight:600;}
+.mode-section{margin-bottom:18px;}
+.mode-section-label{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);font-family:'Poppins',sans-serif;margin-bottom:8px;}
 .mode-section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-
-.conv-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all 0.15s;border-left:3px solid var(--blue);}
+.conv-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;cursor:pointer;transition:all 0.15s;border-left:3px solid var(--blue);margin-bottom:8px;}
 .conv-card:active{transform:scale(0.98);}
-.conv-card.selected{border-left-color:var(--yellow);background:rgba(251,188,16,0.06);}
 .conv-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 .conv-date{font-size:11px;color:var(--muted);font-family:'Poppins',sans-serif;}
-.conv-count{font-size:10px;color:var(--muted);font-family:'Poppins',sans-serif;background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:8px;}
+.conv-count{font-size:10px;color:var(--muted);background:rgba(255,255,255,0.06);padding:2px 7px;border-radius:8px;font-family:'Poppins',sans-serif;}
 .conv-preview{font-size:13px;color:var(--text-light);line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 .conv-actions{display:flex;gap:6px;margin-top:8px;}
-.conv-btn{font-size:11px;padding:4px 10px;border-radius:8px;border:none;font-family:'Poppins',sans-serif;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.conv-btn{font-size:11px;padding:4px 10px;border-radius:8px;border:none;font-family:'Poppins',sans-serif;font-weight:600;cursor:pointer;}
 .conv-btn-open{background:var(--yellow);color:var(--text-dark);}
 .conv-btn-del{background:rgba(229,62,62,0.1);color:#fc8181;border:1px solid rgba(229,62,62,0.2);}
-
 .empty-history{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:60px 20px;text-align:center;}
 .empty-history .ei{font-size:48px;}
 .empty-history p{font-size:14px;color:var(--muted);line-height:1.5;}
-
-/* NEW CONV BUTTON */
-.new-conv-btn{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(251,188,16,0.1);border:1px solid rgba(251,188,16,0.25);border-radius:12px;cursor:pointer;transition:all 0.15s;margin-bottom:4px;}
-.new-conv-btn:active{transform:scale(0.98);}
-.new-conv-btn span{font-size:13px;font-weight:600;color:var(--yellow);font-family:'Poppins',sans-serif;}
 
 /* KNOWLEDGE VIEW */
 #knowledgeView{background:var(--bg);}
@@ -155,29 +168,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 .tip-body{padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6;}
 .tip-body strong{color:var(--text-light);}
 
-/* MODE SHEET */
-#modeSheet{position:fixed;inset:0;z-index:200;display:none;}
-#modeSheet.open{display:block;}
-.sheet-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);}
-.sheet-panel{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:24px 24px 0 0;padding:20px 16px;padding-bottom:calc(20px + var(--safe-bottom));animation:slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);border-top:2px solid var(--yellow);}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.sheet-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;}
-.sheet-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;margin-bottom:14px;}
-.mode-options{display:flex;flex-direction:column;gap:8px;}
-.mode-opt{display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;transition:all 0.15s;}
-.mode-opt.selected{background:rgba(53,100,139,0.2);border-color:var(--blue);}
-.mode-opt-icon{width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-.mode-opt.selected .mode-opt-icon{background:rgba(53,100,139,0.3);}
-.mode-opt-info{flex:1;}
-.mode-opt-name{font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;}
-.mode-opt-desc{font-size:11px;color:var(--muted);margin-top:1px;}
-.mode-opt.selected .mode-opt-name{color:var(--yellow);}
-.mode-check{font-size:16px;color:var(--yellow);opacity:0;}
-.mode-opt.selected .mode-check{opacity:1;}
-
 /* BOTTOM NAV */
 .bottom-nav{background:var(--surface);border-top:2px solid var(--yellow);padding:8px 0;padding-bottom:calc(8px + var(--safe-bottom));display:flex;justify-content:space-around;flex-shrink:0;}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;cursor:pointer;transition:all 0.15s;position:relative;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;cursor:pointer;position:relative;}
 .nav-item:active{transform:scale(0.92);}
 .nav-icon{font-size:22px;line-height:1;}
 .nav-label{font-size:10px;color:var(--muted);font-weight:700;font-family:'Poppins',sans-serif;}
@@ -190,28 +183,19 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text-ligh
 <script>
 const BIN_ID='69bea182aa77b81da905f7cb';
 const BIN_KEY='$2a$10$QQ5PBHZiowkZffvPVxULKuXzBdV/gr6yfQwggfPUZYPQDDK7SAt/u';
-
 async function loadCloudConfig(){
   try{
     const res=await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`,{headers:{'X-Master-Key':BIN_KEY}});
-    const data=await res.json(); const r=data.record;
+    const data=await res.json();const r=data.record;
     if(r.experts&&r.experts.length) localStorage.setItem('ah_experts',JSON.stringify(r.experts));
     if(r.content&&r.content.length) localStorage.setItem('ah_content',JSON.stringify(r.content));
     if(r.modes) localStorage.setItem('ah_modes',JSON.stringify(r.modes));
-    if(r.quickBtns&&r.quickBtns.length){
-      localStorage.setItem('ah_quickbtns',JSON.stringify(r.quickBtns));
-      renderQuickBtnsFromCloud(r.quickBtns);
-    }
-  }catch(e){console.log('Offline mode');}
+    if(r.quickBtns&&r.quickBtns.length) localStorage.setItem('ah_quickbtns',JSON.stringify(r.quickBtns));
+  }catch(e){console.log('Offline');}
 }
 function getCloudExperts(){try{return JSON.parse(localStorage.getItem('ah_experts')||'[]');}catch(e){return[];}}
 function getCloudContent(){try{return JSON.parse(localStorage.getItem('ah_content')||'[]');}catch(e){return[];}}
 function getCloudModes(){try{return JSON.parse(localStorage.getItem('ah_modes')||'{}');}catch(e){return{};}}
-function renderQuickBtnsFromCloud(btns){
-  const grid=document.getElementById('quickGrid');
-  if(!grid||!btns||!btns.length) return;
-  grid.innerHTML=btns.map(btn=>`<div class="qcard" onclick="sendQ('${btn.prompt.replace(/'/g,"\\'")}')"><span class="qi">${btn.icon}</span><span class="qt">${btn.label}</span></div>`).join('');
-}
 </script>
 
 <!-- API MODAL -->
@@ -233,9 +217,18 @@ function renderQuickBtnsFromCloud(btns){
 
 <div id="app" style="display:none">
   <div class="status-bar"></div>
+
+  <!-- TOP NAV -->
   <div class="top-nav">
     <img class="nav-logo" id="navLogo" src="" alt="AmHappy">
-    <div class="nav-mode-pill" id="modePill" onclick="openModeSheet()">🔥 Closing</div>
+    <div class="mode-pill-wrap">
+      <!-- Mode pill — vide par défaut, s'active quand un mode est choisi -->
+      <div class="mode-pill inactive" id="modePill" onclick="openModeSheet()">
+        <span class="mode-pill-icon" id="modePillIcon">⚡</span>
+        <span id="modePillLabel">Mode</span>
+      </div>
+      <button class="mode-clear" id="modeClearBtn" onclick="clearMode()" style="display:none">✕</button>
+    </div>
   </div>
 
   <div id="contentArea">
@@ -243,22 +236,44 @@ function renderQuickBtnsFromCloud(btns){
     <!-- CHAT VIEW -->
     <div class="view active" id="chatView">
       <div class="messages-wrap" id="msgWrap">
+
+        <!-- WELCOME — épuré, conversationnel -->
         <div class="welcome-chat" id="welcomeBlock">
           <div class="welcome-logo-wrap"><img id="welcomeLogo" src="" alt="AmHappy"></div>
-          <div class="tagline-badge">Tous les avantages sont permis</div>
-          <h2>Coach Vente <span>AmHappy</span></h2>
-          <p>Mode actif : <strong id="welcomeModeName" style="color:var(--yellow)">Closing & Objections</strong></p>
-          <div class="quick-grid" id="quickGrid">
-            <div class="qcard" onclick="sendQ('Mon prospect dit je vais réfléchir à la fin du RDV. Comment je réagis exactement ?')"><span class="qi">🤔</span><span class="qt">"Je vais réfléchir…"</span></div>
-            <div class="qcard" onclick="sendQ('Comment créer l\'urgence sans paraître agressif face à un dirigeant corse ?')"><span class="qi">⚡</span><span class="qt">Créer l'urgence</span></div>
-            <div class="qcard" onclick="sendQ('Script appel froid pour décrocher un RDV avec un DAF de PME en Corse pour AmHappy.')"><span class="qi">📞</span><span class="qt">Script appel froid DAF</span></div>
-            <div class="qcard" onclick="sendQ('Comment structurer mon RDV AmHappy pour closer en 1 seul rendez-vous ?')"><span class="qi">🗺️</span><span class="qt">Structure RDV closing</span></div>
+          <h2>Bonjour 👋<br>Coach <span>AmHappy</span></h2>
+          <p>Pose-moi n'importe quelle question vente, prospection ou stratégie. Tu peux aussi activer un mode spécialisé ci-dessous.</p>
+
+          <!-- Mode chips optionnels -->
+          <div class="mode-chips-label">Spécialiser la conversation</div>
+          <div class="mode-chips">
+            <div class="mode-chip" id="chip-closing" onclick="selectModeChip('closing','🔥','Closing & Objections')">
+              <span class="mode-chip-icon">🔥</span>Closing
+            </div>
+            <div class="mode-chip" id="chip-rdv" onclick="selectModeChip('rdv','📞','Générer des RDV')">
+              <span class="mode-chip-icon">📞</span>RDV
+            </div>
+            <div class="mode-chip" id="chip-strategie" onclick="selectModeChip('strategie','🧭','Stratégie')">
+              <span class="mode-chip-icon">🧭</span>Stratégie
+            </div>
+            <div class="mode-chip" id="chip-simulation" onclick="selectModeChip('simulation','🎭','Simulation RDV')">
+              <span class="mode-chip-icon">🎭</span>Simulation
+            </div>
           </div>
         </div>
+
       </div>
+
+      <!-- INPUT BAR -->
       <div class="input-bar">
-        <textarea class="input-field" id="inputField" rows="1" placeholder="Ta situation, ton cas client…" oninput="autoResize(this)" onkeydown="handleKey(event)"></textarea>
-        <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
+        <div class="new-conv-row">
+          <button class="new-conv-btn" id="newConvBtn" onclick="startNewConv()" style="display:none">✏️ Nouvelle conversation</button>
+        </div>
+        <div class="input-row">
+          <textarea class="input-field" id="inputField" rows="1"
+            placeholder="Pose ta question…"
+            oninput="autoResize(this)" onkeydown="handleKey(event)"></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMsg()">➤</button>
+        </div>
       </div>
     </div>
 
@@ -268,10 +283,6 @@ function renderQuickBtnsFromCloud(btns){
         <div class="history-header">
           <div class="history-title">Historique</div>
           <div class="history-clear" onclick="clearAllHistory()">🗑 Tout effacer</div>
-        </div>
-        <div class="new-conv-btn" onclick="startNewConv()">
-          <span style="font-size:20px">✏️</span>
-          <span>Nouvelle conversation</span>
         </div>
         <div id="historyList"></div>
       </div>
@@ -293,7 +304,7 @@ function renderQuickBtnsFromCloud(btns){
           <div style="display:flex;flex-direction:column;gap:7px">
             <div class="book-row"><div class="book-spine" style="background:#FBBC10"></div><div class="book-info"><h4>Conclure la vente</h4><p>Michaël Aguilar</p></div></div>
             <div class="book-row"><div class="book-spine" style="background:#FBBC10"></div><div class="book-info"><h4>Vaincre les objections</h4><p>Michaël Aguilar</p></div></div>
-            <div class="book-row"><div class="book-spine" style="background:#5cace0"></div><div class="book-info"><h4>Méthode FRAME™</h4><p>SforSales · Shannen Boutaleb</p></div></div>
+            <div class="book-row"><div class="book-spine" style="background:#5cace0"></div><div class="book-info"><h4>Méthode FRAME™</h4><p>Shannen Boutaleb</p></div></div>
             <div class="book-row"><div class="book-spine" style="background:#35648B"></div><div class="book-info"><h4>SPIN Selling</h4><p>Neil Rackham</p></div></div>
             <div class="book-row"><div class="book-spine" style="background:#35648B"></div><div class="book-info"><h4>Influence & Manipulation</h4><p>Robert Cialdini</p></div></div>
           </div>
@@ -311,6 +322,7 @@ function renderQuickBtnsFromCloud(btns){
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- BOTTOM NAV -->
@@ -329,43 +341,35 @@ function renderQuickBtnsFromCloud(btns){
 </div>
 
 <!-- MODE SHEET -->
-<div id="modeSheet">
-  <div class="sheet-backdrop" onclick="closeModeSheet()"></div>
-  <div class="sheet-panel">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title">Choisir un mode</div>
-    <div class="mode-options">
-      <div class="mode-opt selected" id="mopt-closing" onclick="selectMode('closing','🔥 Closing','Closing & Objections')">
-        <div class="mode-opt-icon">🔥</div>
-        <div class="mode-opt-info"><div class="mode-opt-name">Closing & Objections</div><div class="mode-opt-desc">"Je vais réfléchir", urgence, conclure</div></div>
-        <div class="mode-check">✓</div>
+<div id="modeSheet" style="position:fixed;inset:0;z-index:200;display:none;">
+  <div style="position:absolute;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);" onclick="closeModeSheet()"></div>
+  <div style="position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-radius:24px 24px 0 0;padding:20px 16px;padding-bottom:calc(20px + var(--safe-bottom));animation:slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);border-top:2px solid var(--yellow);">
+    <div style="width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 20px;"></div>
+    <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px;">Spécialiser la conversation</div>
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Sélectionne un mode pour des réponses ultra-ciblées</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div onclick="selectModeChip('closing','🔥','Closing & Objections');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🔥</div>
+        <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Closing & Objections</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">"Je vais réfléchir", urgence, conclure</div></div>
       </div>
-      <div class="mode-opt" id="mopt-rdv" onclick="selectMode('rdv','📞 RDV','Générer des RDV')">
-        <div class="mode-opt-icon">📞</div>
-        <div class="mode-opt-info"><div class="mode-opt-name">Générer des RDV</div><div class="mode-opt-desc">Prospection froide, scripts, accroches</div></div>
-        <div class="mode-check">✓</div>
+      <div onclick="selectModeChip('rdv','📞','Générer des RDV');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">📞</div>
+        <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Générer des RDV</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">Prospection froide, scripts, accroches</div></div>
       </div>
-      <div class="mode-opt" id="mopt-strategie" onclick="selectMode('strategie','🧭 Stratégie','Vision Stratégique')">
-        <div class="mode-opt-icon">🧭</div>
-        <div class="mode-opt-info"><div class="mode-opt-name">Vision Stratégique</div><div class="mode-opt-desc">Pipeline, plan, organisation semaine</div></div>
-        <div class="mode-check">✓</div>
+      <div onclick="selectModeChip('strategie','🧭','Vision Stratégique');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🧭</div>
+        <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Vision Stratégique</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">Pipeline, plan, organisation semaine</div></div>
       </div>
-      <div class="mode-opt" id="mopt-simulation" onclick="selectMode('simulation','🎭 Simulation','Simulation RDV')">
-        <div class="mode-opt-icon">🎭</div>
-        <div class="mode-opt-info"><div class="mode-opt-name">Simulation de RDV</div><div class="mode-opt-desc">Jouer un prospect difficile</div></div>
-        <div class="mode-check">✓</div>
-      </div>
-      <div class="mode-opt" id="mopt-libre" onclick="selectMode('libre','💬 Libre','Question Libre')">
-        <div class="mode-opt-icon">💬</div>
-        <div class="mode-opt-info"><div class="mode-opt-name">Question Libre</div><div class="mode-opt-desc">Toute situation du terrain</div></div>
-        <div class="mode-check">✓</div>
+      <div onclick="selectModeChip('simulation','🎭','Simulation RDV');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🎭</div>
+        <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Simulation de RDV</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">Jouer un prospect difficile</div></div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-// ===================== INIT =====================
+// INIT
 document.getElementById('splashLogo').src=LOGO_B64;
 document.getElementById('navLogo').src=LOGO_B64;
 document.getElementById('welcomeLogo').src=LOGO_B64;
@@ -384,9 +388,13 @@ function initApp(){
   loadCloudConfig();
   setTimeout(()=>{
     document.getElementById('splash').style.opacity='0';
-    setTimeout(()=>{document.getElementById('splash').style.display='none';document.getElementById('app').style.display='flex';},500);
+    setTimeout(()=>{
+      document.getElementById('splash').style.display='none';
+      document.getElementById('app').style.display='flex';
+      // Toujours démarrer sur une page vierge
+      startFreshOnOpen();
+    },500);
   },1600);
-  loadCurrentModeConv();
   updateHistBadge();
 }
 
@@ -395,222 +403,163 @@ window.addEventListener('load',()=>{
   else{document.getElementById('apiModal').style.display='flex';document.getElementById('splash').style.display='none';}
 });
 
-// ===================== STATE =====================
-// Separate conversation per mode
-// Storage keys: ah_conv_{mode} = [{role,content,time}]
-// History: ah_history = [{id, mode, modeName, date, preview, messages}]
+// ===================== MODE — optionnel =====================
+let currentMode='libre'; // libre par défaut
+let currentModeIcon='';
+let currentModeName='';
+const modeNames={closing:'Closing & Objections',rdv:'Générer des RDV',strategie:'Vision Stratégique',simulation:'Simulation RDV',libre:'Question Libre'};
+const modeIcons={closing:'🔥',rdv:'📞',strategie:'🧭',simulation:'🎭',libre:''};
 
-let currentMode='closing';
-let currentModeFullName='Closing & Objections';
-let modeConvs={closing:[],rdv:[],strategie:[],simulation:[],libre:[]};
+function selectModeChip(mode,icon,name){
+  currentMode=mode; currentModeIcon=icon; currentModeName=name;
+  // Update pill
+  document.getElementById('modePill').className='mode-pill active';
+  document.getElementById('modePillIcon').textContent=icon;
+  document.getElementById('modePillLabel').textContent=name;
+  document.getElementById('modeClearBtn').style.display='flex';
+  // Update chips
+  document.querySelectorAll('.mode-chip').forEach(c=>c.classList.remove('selected'));
+  const chip=document.getElementById('chip-'+mode);
+  if(chip) chip.classList.add('selected');
+  // Show mode badge in conversation if messages exist
+  if(convMessages.length>0) insertModeBadge(icon,name);
+}
+
+function clearMode(){
+  currentMode='libre'; currentModeIcon=''; currentModeName='';
+  document.getElementById('modePill').className='mode-pill inactive';
+  document.getElementById('modePillIcon').textContent='⚡';
+  document.getElementById('modePillLabel').textContent='Mode';
+  document.getElementById('modeClearBtn').style.display='none';
+  document.querySelectorAll('.mode-chip').forEach(c=>c.classList.remove('selected'));
+}
+
+function openModeSheet(){document.getElementById('modeSheet').style.display='block';}
+function closeModeSheet(){document.getElementById('modeSheet').style.display='none';}
+
+function insertModeBadge(icon,name){
+  const wrap=document.getElementById('msgWrap');
+  const badge=document.createElement('div');
+  badge.className='mode-badge-msg';
+  badge.innerHTML=`<span>${icon} Mode ${name} activé</span>`;
+  wrap.appendChild(badge);
+  wrap.scrollTop=wrap.scrollHeight;
+}
+
+// ===================== CONVERSATION =====================
+let convMessages=[];
 let loading=false;
 
-const modeIcons={closing:'🔥',rdv:'📞',strategie:'🧭',simulation:'🎭',libre:'💬'};
-const modeNames={closing:'Closing & Objections',rdv:'Générer des RDV',strategie:'Vision Stratégique',simulation:'Simulation RDV',libre:'Question Libre'};
-
-// ===================== CONVERSATION STORAGE =====================
-function saveConvToStorage(mode, messages){
-  localStorage.setItem(`ah_conv_${mode}`, JSON.stringify(messages));
+// À l'ouverture — toujours vierge
+function startFreshOnOpen(){
+  // Archive la conv en cours si elle a des messages
+  if(convMessages.length>=2){
+    archiveConversation([...convMessages]);
+  }
+  convMessages=[];
+  clearMode();
+  const wrap=document.getElementById('msgWrap');
+  const welcome=document.getElementById('welcomeBlock');
+  wrap.innerHTML='';
+  wrap.appendChild(welcome);
+  welcome.style.display='flex';
+  document.getElementById('newConvBtn').style.display='none';
 }
 
-function loadConvFromStorage(mode){
-  try{ return JSON.parse(localStorage.getItem(`ah_conv_${mode}`)||'[]'); }
-  catch(e){ return []; }
+function startNewConv(){
+  if(convMessages.length>=2) archiveConversation([...convMessages]);
+  convMessages=[];
+  clearMode();
+  const wrap=document.getElementById('msgWrap');
+  const welcome=document.getElementById('welcomeBlock');
+  wrap.innerHTML='';
+  wrap.appendChild(welcome);
+  welcome.style.display='flex';
+  document.getElementById('newConvBtn').style.display='none';
 }
 
-function getHistory(){
-  try{ return JSON.parse(localStorage.getItem('ah_history')||'[]'); }
-  catch(e){ return []; }
-}
+// ===================== HISTORY =====================
+function getHistory(){try{return JSON.parse(localStorage.getItem('ah_history')||'[]');}catch(e){return[];}}
+function saveHistory(h){localStorage.setItem('ah_history',JSON.stringify(h));}
 
-function saveHistory(history){
-  localStorage.setItem('ah_history', JSON.stringify(history));
-}
-
-function archiveConversation(mode, messages){
-  if(!messages || messages.length < 2) return;
-  const history = getHistory();
-  const preview = messages.find(m=>m.role==='user')?.content?.substring(0,80)||'';
+function archiveConversation(messages){
+  if(!messages||messages.length<2) return;
+  const history=getHistory();
+  const firstUser=messages.find(m=>m.role==='user');
   history.unshift({
-    id: Date.now(),
-    mode,
-    modeName: modeNames[mode],
-    modeIcon: modeIcons[mode],
-    date: new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
-    preview,
+    id:Date.now(),
+    mode:currentMode,
+    modeName:currentMode==='libre'?'Question Libre':currentModeName,
+    modeIcon:currentModeIcon||'💬',
+    date:new Date().toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),
+    preview:firstUser?.content?.substring(0,80)||'',
     messages
   });
-  // Keep max 50 conversations
-  if(history.length > 50) history.splice(50);
+  if(history.length>50) history.splice(50);
   saveHistory(history);
   updateHistBadge();
 }
 
 function updateHistBadge(){
-  const h = getHistory();
-  const badge = document.getElementById('histBadge');
-  if(h.length > 0){
-    badge.style.display='block';
-    badge.textContent = h.length > 9 ? '9+' : h.length;
-  } else {
-    badge.style.display='none';
-  }
+  const h=getHistory();
+  const badge=document.getElementById('histBadge');
+  if(h.length>0){badge.style.display='block';badge.textContent=h.length>9?'9+':h.length;}
+  else badge.style.display='none';
 }
 
-// ===================== LOAD CURRENT MODE CONV =====================
-function loadCurrentModeConv(){
-  const saved = loadConvFromStorage(currentMode);
-  modeConvs[currentMode] = saved;
-  
-  const wrap = document.getElementById('msgWrap');
-  // Clear messages (keep welcome block)
-  const welcomeBlock = document.getElementById('welcomeBlock');
-  wrap.innerHTML = '';
-  wrap.appendChild(welcomeBlock);
-  
-  if(saved.length > 0){
-    welcomeBlock.style.display='none';
-    saved.forEach(msg => appendMsgFromHistory(msg.role, msg.content, msg.time));
-  } else {
-    welcomeBlock.style.display='flex';
-    document.getElementById('welcomeModeName').textContent = modeNames[currentMode];
-  }
-  
-  wrap.scrollTop = wrap.scrollHeight;
-}
-
-// ===================== NAVIGATION =====================
-function switchView(v,n){
-  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
-  document.getElementById(v).classList.add('active');
-  document.getElementById(n).classList.add('active');
-}
-
-// ===================== MODE =====================
-function openModeSheet(){document.getElementById('modeSheet').classList.add('open');}
-function closeModeSheet(){document.getElementById('modeSheet').classList.remove('open');}
-
-function selectMode(mode, label, fullName){
-  // Archive current conversation before switching
-  if(modeConvs[currentMode] && modeConvs[currentMode].length >= 2){
-    // Keep in storage, already saved
-  }
-  
-  currentMode=mode;
-  currentModeFullName=fullName;
-  document.getElementById('modePill').textContent=label;
-  document.querySelectorAll('.mode-opt').forEach(o=>o.classList.remove('selected'));
-  document.getElementById('mopt-'+mode).classList.add('selected');
-  closeModeSheet();
-  loadCurrentModeConv();
-}
-
-function startNewConv(){
-  // Archive current conv of this mode
-  if(modeConvs[currentMode] && modeConvs[currentMode].length >= 2){
-    archiveConversation(currentMode, [...modeConvs[currentMode]]);
-  }
-  // Clear current mode
-  modeConvs[currentMode]=[];
-  saveConvToStorage(currentMode, []);
-  
-  const wrap=document.getElementById('msgWrap');
-  const welcomeBlock=document.getElementById('welcomeBlock');
-  wrap.innerHTML='';
-  wrap.appendChild(welcomeBlock);
-  welcomeBlock.style.display='flex';
-  document.getElementById('welcomeModeName').textContent=modeNames[currentMode];
-  
-  switchView('chatView','navChat');
-}
-
-// ===================== HISTORY =====================
 function renderHistory(){
   const history=getHistory();
   const list=document.getElementById('historyList');
-  
   if(!history.length){
-    list.innerHTML=`<div class="empty-history"><div class="ei">🕐</div><p>Aucune conversation sauvegardée.<br>Tes conversations apparaîtront ici automatiquement.</p></div>`;
+    list.innerHTML='<div class="empty-history"><div class="ei">🕐</div><p>Aucune conversation sauvegardée.<br>Elles apparaîtront ici automatiquement.</p></div>';
     return;
   }
-  
-  // Group by mode
-  const byMode={};
-  history.forEach(conv=>{
-    if(!byMode[conv.mode]) byMode[conv.mode]=[];
-    byMode[conv.mode].push(conv);
-  });
-  
-  let html='';
-  Object.entries(byMode).forEach(([mode, convs])=>{
-    html+=`<div class="mode-section">
-      <div class="mode-section-label">${modeIcons[mode]} ${modeNames[mode]}</div>
-      ${convs.map((conv,i)=>`
-        <div class="conv-card" id="conv-${conv.id}">
-          <div class="conv-meta">
-            <div class="conv-date">${conv.date}</div>
-            <div class="conv-count">${conv.messages.length} messages</div>
-          </div>
-          <div class="conv-preview">${conv.preview}…</div>
-          <div class="conv-actions">
-            <button class="conv-btn conv-btn-open" onclick="openConv(${conv.id})">📂 Rouvrir</button>
-            <button class="conv-btn conv-btn-del" onclick="deleteConv(${conv.id})">🗑 Supprimer</button>
-          </div>
-        </div>
-      `).join('')}
-    </div>`;
-  });
-  
-  list.innerHTML=html;
+  list.innerHTML=history.map(conv=>`
+    <div class="conv-card">
+      <div class="conv-meta">
+        <div class="conv-date">${conv.modeIcon} ${conv.modeName} · ${conv.date}</div>
+        <div class="conv-count">${conv.messages.length} msg</div>
+      </div>
+      <div class="conv-preview">${conv.preview}…</div>
+      <div class="conv-actions">
+        <button class="conv-btn conv-btn-open" onclick="openConv(${conv.id})">📂 Rouvrir</button>
+        <button class="conv-btn conv-btn-del" onclick="deleteConv(${conv.id})">🗑</button>
+      </div>
+    </div>
+  `).join('');
 }
 
 function openConv(id){
-  const history=getHistory();
-  const conv=history.find(c=>c.id===id);
+  const conv=getHistory().find(c=>c.id===id);
   if(!conv) return;
-  
-  // Archive current if needed
-  if(modeConvs[currentMode]&&modeConvs[currentMode].length>=2){
-    archiveConversation(currentMode,[...modeConvs[currentMode]]);
+  if(convMessages.length>=2) archiveConversation([...convMessages]);
+  convMessages=[...conv.messages];
+  currentMode=conv.mode; currentModeIcon=conv.modeIcon; currentModeName=conv.modeName;
+  // Update pill
+  if(currentMode!=='libre'){
+    document.getElementById('modePill').className='mode-pill active';
+    document.getElementById('modePillIcon').textContent=currentModeIcon;
+    document.getElementById('modePillLabel').textContent=currentModeName;
+    document.getElementById('modeClearBtn').style.display='flex';
   }
-  
-  // Switch to the conv's mode
-  currentMode=conv.mode;
-  currentModeFullName=modeNames[conv.mode];
-  document.getElementById('modePill').textContent=`${modeIcons[conv.mode]} ${conv.mode.charAt(0).toUpperCase()+conv.mode.slice(1)}`;
-  document.querySelectorAll('.mode-opt').forEach(o=>o.classList.remove('selected'));
-  document.getElementById('mopt-'+conv.mode).classList.add('selected');
-  
-  // Load messages
-  modeConvs[currentMode]=[...conv.messages];
-  saveConvToStorage(currentMode, conv.messages);
-  
   const wrap=document.getElementById('msgWrap');
-  const welcomeBlock=document.getElementById('welcomeBlock');
-  wrap.innerHTML='';
-  wrap.appendChild(welcomeBlock);
-  welcomeBlock.style.display='none';
-  
-  conv.messages.forEach(msg=>appendMsgFromHistory(msg.role,msg.content,msg.time));
+  const welcome=document.getElementById('welcomeBlock');
+  wrap.innerHTML=''; wrap.appendChild(welcome); welcome.style.display='none';
+  conv.messages.forEach(m=>appendMsg(m.role,m.content,m.time));
   wrap.scrollTop=wrap.scrollHeight;
-  
+  document.getElementById('newConvBtn').style.display='flex';
   switchView('chatView','navChat');
 }
 
 function deleteConv(id){
-  if(!confirm('Supprimer cette conversation ?')) return;
-  const history=getHistory().filter(c=>c.id!==id);
-  saveHistory(history);
-  renderHistory();
-  updateHistBadge();
+  if(!confirm('Supprimer ?')) return;
+  saveHistory(getHistory().filter(c=>c.id!==id));
+  renderHistory(); updateHistBadge();
 }
 
 function clearAllHistory(){
   if(!confirm('Effacer tout l\'historique ?')) return;
-  saveHistory([]);
-  renderHistory();
-  updateHistBadge();
+  saveHistory([]); renderHistory(); updateHistBadge();
 }
 
 // ===================== CHAT =====================
@@ -621,42 +570,28 @@ async function sendMsg(custom){
   const field=document.getElementById('inputField');
   const text=custom||field.value.trim();
   if(!text) return;
-  
-  const welcomeBlock=document.getElementById('welcomeBlock');
-  if(welcomeBlock.style.display!=='none') welcomeBlock.style.display='none';
+  document.getElementById('welcomeBlock').style.display='none';
+  document.getElementById('newConvBtn').style.display='flex';
   if(!custom){field.value='';field.style.height='auto';}
-  
   const now=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
   appendMsg('user',text,now);
-  
-  const msgObj={role:'user',content:text,time:now};
-  modeConvs[currentMode].push(msgObj);
-  saveConvToStorage(currentMode, modeConvs[currentMode]);
-  
+  convMessages.push({role:'user',content:text,time:now});
   setLoading(true);
   const typing=appendTyping();
-  
   try{
-    const apiMessages=modeConvs[currentMode].map(m=>({role:m.role,content:m.content}));
+    const apiMessages=convMessages.map(m=>({role:m.role,content:m.content}));
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json','x-api-key':getApiKey(),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:buildSystem(),messages:apiMessages})
     });
-    const data=await res.json();
-    typing.remove();
+    const data=await res.json(); typing.remove();
     if(data.error){appendMsg('ai','❌ '+data.error.message,now);setLoading(false);return;}
     const reply=data.content?.find(b=>b.type==='text')?.text||'Erreur.';
-    const replyTime=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-    const replyObj={role:'assistant',content:reply,time:replyTime};
-    modeConvs[currentMode].push(replyObj);
-    saveConvToStorage(currentMode, modeConvs[currentMode]);
-    appendMsg('ai',reply,replyTime);
-    
-    // Auto-archive every 10 messages
-    if(modeConvs[currentMode].length>0 && modeConvs[currentMode].length%10===0){
-      archiveConversation(currentMode,[...modeConvs[currentMode]]);
-    }
+    const rt=new Date().toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    convMessages.push({role:'assistant',content:reply,time:rt});
+    appendMsg('ai',reply,rt);
+    if(convMessages.length>0&&convMessages.length%10===0) archiveConversation([...convMessages]);
   }catch(e){typing.remove();appendMsg('ai','❌ Erreur : '+e.message,now);}
   setLoading(false);
 }
@@ -671,13 +606,10 @@ function appendMsg(role,text,time){
     if(/delaporte|acheter/i.test(text)) sources.push('d');
   }
   const srcHtml=sources.length?'<div class="src-pills">'+(sources.includes('a')?'<span class="src-pill s-a">Aguilar</span>':'')+(sources.includes('s')?'<span class="src-pill s-s">Shannen</span>':'')+(sources.includes('d')?'<span class="src-pill s-d">Delaporte</span>':'')+'</div>':'';
-  const timeHtml=time?`<div class="msg-time">${time}</div>`:'';
   const avHtml=role==='ai'?`<div class="msg-av"><img src="${LOGO_B64}" alt="AH"></div>`:'<div class="msg-av">V</div>';
-  div.innerHTML=avHtml+`<div class="msg-body"><div class="msg-name">${role==='ai'?'Coach AmHappy':'Vous'}</div><div class="msg-bubble">${fmt(text)}${srcHtml}</div>${timeHtml}</div>`;
+  div.innerHTML=avHtml+`<div class="msg-body"><div class="msg-name">${role==='ai'?'Coach AmHappy':'Vous'}</div><div class="msg-bubble">${fmt(text)}${srcHtml}</div><div class="msg-time">${time||''}</div></div>`;
   wrap.appendChild(div); wrap.scrollTop=wrap.scrollHeight; return div;
 }
-
-function appendMsgFromHistory(role,text,time){ return appendMsg(role,text,time); }
 
 function appendTyping(){
   const wrap=document.getElementById('msgWrap');
@@ -696,15 +628,15 @@ function fmt(t){
 function setLoading(s){loading=s;document.getElementById('sendBtn').disabled=s;}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px';}
+function switchView(v,n){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));document.getElementById(v).classList.add('active');document.getElementById(n).classList.add('active');}
 
-// ===================== SYSTEM PROMPT =====================
 function buildSystem(){
   const modes={
     closing:'MODE CLOSING : Phrases exactes à dire, posture, timing. Cite Aguilar (familles d\'objections) et Shannen (aversion à la perte). "Je vais réfléchir" → identifier la vraie raison puis traiter.',
     rdv:'MODE RDV : Scripts d\'approche, messages prospection, accroches. Culture relationnelle corse. Delaporte + Shannen.',
     strategie:'MODE STRATÉGIQUE : Vision globale, pipeline, organisation semaine, priorisation cibles.',
     simulation:'MODE SIMULATION : Tu joues un prospect difficile. Objecte naturellement. Feedback coach après chaque échange.',
-    libre:'MODE LIBRE : Toute question commerciale ou stratégique.'
+    libre:'Réponds à toute question commerciale ou stratégique avec les meilleures pratiques vente. Sois direct et actionnable.'
   };
   const cloudExperts=getCloudExperts();
   const cloudContent=getCloudContent();
