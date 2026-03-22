@@ -246,14 +246,14 @@ function getCloudModes(){try{return JSON.parse(localStorage.getItem('ah_modes')|
           <!-- Mode chips optionnels -->
           <div class="mode-chips-label">Spécialiser la conversation</div>
           <div class="mode-chips">
-            <div class="mode-chip" id="chip-closing" onclick="selectModeChip('closing','🔥','Closing & Objections')">
-              <span class="mode-chip-icon">🔥</span>Closing
+            <div class="mode-chip" id="chip-closing" onclick="selectModeChip('closing','🤝','Closing & Objections')">
+              <span class="mode-chip-icon">🤝</span>Closing
             </div>
-            <div class="mode-chip" id="chip-rdv" onclick="selectModeChip('rdv','📞','Générer des RDV')">
-              <span class="mode-chip-icon">📞</span>RDV
+            <div class="mode-chip" id="chip-rdv" onclick="selectModeChip('rdv','🎯','Générer des RDV')">
+              <span class="mode-chip-icon">🎯</span>RDV
             </div>
-            <div class="mode-chip" id="chip-strategie" onclick="selectModeChip('strategie','🧭','Stratégie')">
-              <span class="mode-chip-icon">🧭</span>Stratégie
+            <div class="mode-chip" id="chip-strategie" onclick="selectModeChip('strategie','🧠','Stratégie')">
+              <span class="mode-chip-icon">🧠</span>Stratégie
             </div>
             <div class="mode-chip" id="chip-simulation" onclick="selectModeChip('simulation','🎭','Simulation RDV')">
               <span class="mode-chip-icon">🎭</span>Simulation
@@ -348,16 +348,16 @@ function getCloudModes(){try{return JSON.parse(localStorage.getItem('ah_modes')|
     <div style="font-family:'Poppins',sans-serif;font-weight:700;font-size:17px;margin-bottom:6px;">Spécialiser la conversation</div>
     <div style="font-size:13px;color:var(--muted);margin-bottom:16px;">Sélectionne un mode pour des réponses ultra-ciblées</div>
     <div style="display:flex;flex-direction:column;gap:8px;">
-      <div onclick="selectModeChip('closing','🔥','Closing & Objections');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
-        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🔥</div>
+      <div onclick="selectModeChip('closing','🤝','Closing & Objections');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🤝</div>
         <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Closing & Objections</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">"Je vais réfléchir", urgence, conclure</div></div>
       </div>
-      <div onclick="selectModeChip('rdv','📞','Générer des RDV');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
-        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">📞</div>
+      <div onclick="selectModeChip('rdv','🎯','Générer des RDV');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🎯</div>
         <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Générer des RDV</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">Prospection froide, scripts, accroches</div></div>
       </div>
-      <div onclick="selectModeChip('strategie','🧭','Vision Stratégique');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
-        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🧭</div>
+      <div onclick="selectModeChip('strategie','🧠','Vision Stratégique');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
+        <div style="width:38px;height:38px;border-radius:11px;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:19px;">🧠</div>
         <div><div style="font-weight:700;font-size:14px;font-family:'Poppins',sans-serif;">Vision Stratégique</div><div style="font-size:11px;color:var(--muted);margin-top:1px;">Pipeline, plan, organisation semaine</div></div>
       </div>
       <div onclick="selectModeChip('simulation','🎭','Simulation RDV');closeModeSheet()" style="display:flex;align-items:center;gap:12px;padding:13px 14px;border-radius:14px;background:var(--bg);border:1px solid var(--border);cursor:pointer;">
@@ -408,7 +408,7 @@ let currentMode='libre'; // libre par défaut
 let currentModeIcon='';
 let currentModeName='';
 const modeNames={closing:'Closing & Objections',rdv:'Générer des RDV',strategie:'Vision Stratégique',simulation:'Simulation RDV',libre:'Question Libre'};
-const modeIcons={closing:'🔥',rdv:'📞',strategie:'🧭',simulation:'🎭',libre:''};
+const modeIcons={closing:'🤝',rdv:'🎯',strategie:'🧠',simulation:'🎭',libre:''};
 
 function selectModeChip(mode,icon,name){
   currentMode=mode; currentModeIcon=icon; currentModeName=name;
